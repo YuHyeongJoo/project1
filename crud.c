@@ -85,6 +85,17 @@ char* m_to_string(T_Record* p){
     return str;
 }
 
+void m_delete(T_Record* p){
+    int i, index;
+    for(i=0; i<MAX_MEMBERS; i++)
+        if(members[i]==p) {
+            index=i;
+            break;
+        }
+    free(p);
+    members[index] = NULL;
+    _count--;
+}
 void m_get_all(T_Record* a[]){
     int i, c=0;
     for(i=0; i<MAX_MEMBERS; i++){

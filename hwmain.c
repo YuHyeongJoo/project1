@@ -1,4 +1,5 @@
 #include "crud.h"
+void delete_record();
 void list_record();
 void create_record();
 void read_record();
@@ -7,10 +8,11 @@ void make_report();
 void read_file();
 void bubblesort();
 void write_record();
+void delete_record();
 int main(){
     int menu;
     while(1){
-        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 0.Quit > ");
+        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 9.Delete  0.Quit > ");
         scanf("%d", &menu);
         printf("\n");
         switch(menu){
@@ -37,6 +39,9 @@ int main(){
 		break;
 	    case 8:
 		bubblesort();
+		break;
+	    case 9:
+		delete_record();
 		break;
             case 0:
             default:
@@ -132,6 +137,8 @@ void write_record(){
   FILE *fp = fopen("records.txt", "w");
   for(int i = 1; ;i++ ){
     T_Record* p = records[i-1];
+  for(int i = 1; ;i++ ){
+    T_Record* p = records[i-1];
      fprintf(fp, "%s %s %d %d %s %d",m_getname(p), m_getgender(p),m_getstudentID(p) ,m_getsemester(p),m_getsubject(p), m_getgrade(p));
      if( i>= m_count())break;
      fprintf(fp,"\n");
@@ -189,3 +196,13 @@ void bubblesort(){
 
 }
 
+void delete_record(){
+  char name[20];
+  printf("Enter a neme>");
+  scanf("%s",name);
+  T_Record* p = m_search_by_name(name);
+  if(p !=NULL){
+    m_delete(p);
+  }
+  else{
+    printf("No such member!!");
