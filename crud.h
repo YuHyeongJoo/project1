@@ -11,6 +11,7 @@ typedef struct st_member{
     char gender[20];
     int grade; //
 } T_Record;
+void m_update(T_Record* p, char* su, int gr, int se);
 void m_delete(T_Record* p);
 void m_get_all(T_Record* a[]);  // 회원정보가 들어있는 모든 레코드 포인터의 배열을 만들기
 char* m_to_string(T_Record* p); // 특정 회원 레코드의 내용을 문자열로 가져오기

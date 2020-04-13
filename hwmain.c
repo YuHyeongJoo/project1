@@ -9,10 +9,12 @@ void read_file();
 void bubblesort();
 void write_record();
 void delete_record();
+void search_delete();
+void search_update();
 int main(){
     int menu;
     while(1){
-        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 9.Delete  0.Quit > ");
+        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 9.Delete 10. Search for delete 11 Update 0.Quit > ");
         scanf("%d", &menu);
         printf("\n");
         switch(menu){
@@ -43,6 +45,12 @@ int main(){
 	    case 9:
 		delete_record();
 		break;
+	    case 10:
+		search_delete();
+		break;
+	    case 11:
+		search_update();
+		break;
             case 0:
             default:
                 return 0;
@@ -51,6 +59,18 @@ int main(){
     return 0;
 }
 
+void search_delete(){
+  char search[20];
+  T_Record* records[MAX_MEMBERS];
+  int count =0;
+  printf("Delete records containing the character you enter: ");
+  scanf("%s", search);
+  count = m_partial_search(search, records);
+  for(int i=0; i<count; i++){
+    T_Record* p = records[i];
+    m_delete(p);
+  }
+}
 void create_record(){
     int c =m_count();
     if(c>=MAX_MEMBERS){
@@ -137,8 +157,6 @@ void write_record(){
   FILE *fp = fopen("records.txt", "w");
   for(int i = 1; ;i++ ){
     T_Record* p = records[i-1];
-  for(int i = 1; ;i++ ){
-    T_Record* p = records[i-1];
      fprintf(fp, "%s %s %d %d %s %d",m_getname(p), m_getgender(p),m_getstudentID(p) ,m_getsemester(p),m_getsubject(p), m_getgrade(p));
      if( i>= m_count())break;
      fprintf(fp,"\n");
@@ -197,12 +215,34 @@ void bubblesort(){
 }
 
 void delete_record(){
-  char name[20];
-  printf("Enter a neme>");
-  scanf("%s",name);
-  T_Record* p = m_search_by_name(name);
-  if(p !=NULL){
-    m_delete(p);
-  }
-  else{
-    printf("No such member!!");
+  	char name[20];
+ 	 printf("Enter a neme>");
+ 	 scanf("%s",name);
+ 	 T_Record* p = m_search_by_name(name);
+ 	 if(p !=NULL){
+   	 m_delete(p);
+  	}
+	  else{
+ 	   printf("No such member!!");
+	}
+}
+void search_update(){
+ 	 char search[20], subject[20];
+ 	 int grade, semester;
+ 	 T_Record* records[MAX_MEMBERS];
+ 	 int count;
+ 	 printf("Update records containing the character you enter: ");
+ 	 scanf("%s", search);
+ 	 count = m_partial_search(search, records);
+ 	 for(int i=0; i<count; i++){
+ 	   T_Record* p = records[i];
+ 	   printf("Enter %s's updated info\n", m_getname(p));
+ 	   printf("Subject > ");
+ 	   scanf("%s", subject);
+ 	   printf("Grade > ");
+ 	   scanf("%d", &grade);
+ 	   printf("Semester > ");
+ 	   scanf("%d", &semester);
+ 	   m_update(p, subject, grade, semester);
+ 	 }
+}

@@ -3,6 +3,12 @@
 T_Record* members[MAX_MEMBERS]; // 회원정보데이터 (전역)
 int _count = 0;
 
+void m_update(T_Record* p, char* su, int gr, int se){
+ 	strcpy(p->subject, su);
+	p->grade = gr;
+	p->semester = se;
+}
+
 int m_first_available(){
     int i;
     for(i=0; i<MAX_MEMBERS; i++){
