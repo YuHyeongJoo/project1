@@ -1,5 +1,5 @@
 #include "crud.h"
-
+//ver_B
 T_Record* members[MAX_MEMBERS]; // 회원정보데이터 (전역)
 int _count = 0;
 
@@ -26,7 +26,10 @@ int m_partial_search(char* n, T_Record* a[]){
     if(!members[i]) break;
     if(strstr(members[i]->name, n)){
       a[c]= members[i];
-      c++;
+	c++;      
+	#ifdef DEBUG
+          printf("Struct pointer index %d is saved in the arry\n", i);
+      #endif
     }
   }
   return c;
