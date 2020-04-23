@@ -102,7 +102,10 @@ void m_delete(T_Record* p){
             break;
         }
     free(p);
-    members[index] = NULL;
+    for(int k = index; k<_count-1; k++){
+	members[k] = members[k+1];
+}
+    members[_count-1] = NULL;
     _count--;
 }
 void m_get_all(T_Record* a[]){

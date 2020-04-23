@@ -11,10 +11,11 @@ void write_record();
 void delete_record();
 void search_delete();
 void search_update();
+void update_one();
 int main(){
     int menu;
     while(1){
-        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 9.Delete 10. Search for delete 11 Update 0.Quit > ");
+        printf("\nMenu : 1.Add student 2.Read 3.List 4.Search and print all 5. Create reportfile 6. Make file 7. Read file 8.Sort grade point 9.Delete one 10. Search and delete all 11 Search and Update all 12. Update one  0.Quit > ");
         scanf("%d", &menu);
         printf("\n");
         switch(menu){
@@ -50,6 +51,9 @@ int main(){
 		break;
 	    case 11:
 		search_update();
+		break;
+	    case 12:
+		update_one();
 		break;
             case 0:
             default:
@@ -231,7 +235,7 @@ void search_update(){
  	 int grade, semester;
  	 T_Record* records[MAX_MEMBERS];
  	 int count;
- 	 printf("Update records containing the character you enter: ");
+ 	 printf("Update all records containing the character you enter: ");
  	 scanf("%s", search);
  	 count = m_partial_search(search, records);
  	 for(int i=0; i<count; i++){
@@ -245,4 +249,25 @@ void search_update(){
  	   scanf("%d", &semester);
  	   m_update(p, subject, grade, semester);
  	 }
+}
+void update_one(){
+	printf("Update one record.\n");
+	char name[20], subject[20]; int grade,semester;
+  	printf("Enter a name>");
+  	scanf("%s",name);
+  	T_Record* p = m_search_by_name(name);
+	if(p!=NULL){
+		
+	 printf("Enter %s's updated info\n", m_getname(p));
+           printf("Subject > ");
+           scanf("%s", subject);
+           printf("Grade > ");
+           scanf("%d", &grade);
+           printf("Semester > ");
+           scanf("%d", &semester);
+           m_update(p, subject, grade, semester);
+	}
+	else{
+		printf("No such name.\n");
+	}
 }
