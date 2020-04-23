@@ -171,7 +171,7 @@ void read_file(){
   while(1){
     if(feof(fp)) break;
     int c =m_count();
-    if(c>4){
+    if(c>MAX_MEMBERS-1){
       printf("There is no space");
       return;
     }
